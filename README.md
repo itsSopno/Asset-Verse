@@ -78,5 +78,5 @@ This project was built as a **B2B SaaS-style application** inspired by platforms
 
 ---
 
-## 📁 Project Structure (Simplified)
+
 
