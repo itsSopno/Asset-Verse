@@ -141,7 +141,7 @@ const Navbar = () => {
                     <span className="text-green-400 text-sm">Role: You Are Employee</span>
                   ) : (
                     <>
-                      <Link onClick={() => setIsOpen(false)} to="/hr-join" className="text-indigo-400">Join as HR</Link>
+                      <Link onClick={() => setIsOpen(false)} to="/hr" className="text-indigo-400">Join as HR</Link>
                       <Link onClick={() => setIsOpen(false)} to="/join" className="text-white">Join as Employee</Link>
                     </>
                   )}

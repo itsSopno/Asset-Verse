@@ -3,8 +3,11 @@ import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
 import useAuth from '../../hooks/useAuth'
 import useAxiosSecure from '../../hooks/useAxiosSecure'
+
 const EmployeeForm = () => {
-  const { user } = useAuth()  // get current logged-in user
+  const { user } = useAuth()
+  const axiosSecure = useAxiosSecure() // ✅ হুকটিকে এখানে কল করে নিন
+  
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -12,38 +15,51 @@ const EmployeeForm = () => {
     dateOfBirth: ''
   })
 
-  // Auto-fill email & password from logged-in user
   useEffect(() => {
     if (user?.email) {
       setForm(prev => ({
         ...prev,
         email: user.email,
-        password: 'default123', // default password for employee
+        password: 'default123',
       }))
     }
   }, [user])
 
   const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value })
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
-  
-  try {
-    if (!user) {
-      toast.error('You must be logged in to register as employee');
-      return;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    if (!form.name || !form.dateOfBirth) {
+      return toast.error("Please fill in all fields!");
     }
 
-    
-    const res = await useAxiosSecure.post('/join-employee', form);
+    try {
+      if (!user) {
+        toast.error('You must be logged in to register as employee');
+        return;
+      }
 
-    toast.success(res.data.message);
-    setForm({ name: '', email: user.email, password: 'default123', dateOfBirth: '' });
-    
-  } catch (err) {
-    toast.error(err.response?.data?.message || 'Error occurred');
-  }
-};
+      
+      const res = await axiosSecure.post('/join-employee', {
+        ...form,
+        role: 'employee', 
+        status: 'pending', 
+        image: user?.photoURL 
+      });
+
+      if (res.data.insertedId) {
+        toast.success("Registration Successful!");
+        setForm({ name: '', email: user.email, password: 'default123', dateOfBirth: '' });
+      }
+      
+    } catch (err) {
+      console.log(err); 
+      toast.error(err.response?.data?.message || 'Error occurred');
+    }
+  };
+
+  
 
   return (
     <motion.div
