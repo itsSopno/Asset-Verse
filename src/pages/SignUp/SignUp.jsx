@@ -183,7 +183,7 @@ const SignUp = () => {
             type="submit"
             className="w-full bg-indigo-600 text-white  hover:bg-indigo-700 py-3 rounded-lg transition font-semibold shadow-lg flex justify-center items-center"
           >
-            {loading ? <TbFidgetSpinner className="animate-spin " /> : "Create Account"}
+           Create ACCOUNT
           </button>
         </form>
 
