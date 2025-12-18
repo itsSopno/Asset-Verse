@@ -31,14 +31,12 @@ const Navbar = () => {
       initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.7, ease: 'easeOut' }}
-      // w-full ব্যবহার করে পুরো স্ক্রিন কভার করা হয়েছে
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         scrollY > 60
           ? 'bg-[#0b0b15]/90 backdrop-blur-xl border-b border-white/10 shadow-lg py-2'
           : 'bg-transparent py-5'
       }`}
     >
-      {/* Container সরিয়ে px-6 বা px-12 ব্যবহার করে দুই পাশে গ্যাপ রাখা হয়েছে */}
       <div className="w-full px-4 md:px-12">
         <div className="flex items-center justify-between h-16">
           
@@ -65,37 +63,47 @@ const Navbar = () => {
             <div className="hidden md:flex items-center gap-5">
               {user ? (
                 <>
-                  {/* Role Indicators */}
                   <div className="flex items-center gap-3">
-                    {role === 'hr' && (
-                      <span className="text-[10px] font-bold text-indigo-400 border border-indigo-400/40 px-3 py-1 rounded-full tracking-tighter uppercase">HR Account</span>
-                    )}
-                    {role === 'employee' && (
-                      <span className="text-[10px] font-bold text-green-400 border border-green-400/40 px-3 py-1 rounded-full tracking-tighter uppercase">Employee</span>
-                    )}
-                    
-                    {!role && (
+                    {/* Role Condition Logic */}
+                    {role === 'hr' ? (
+                      <span className="text-[10px] font-bold text-indigo-400 border border-indigo-400/40 px-3 py-1 rounded-full tracking-tighter uppercase">
+                        You Are HR
+                      </span>
+                    ) : role === 'employee' ? (
+                      <span className="text-[10px] font-bold text-green-400 border border-green-400/40 px-3 py-1 rounded-full tracking-tighter uppercase">
+                        You Are Employee
+                      </span>
+                    ) : (
+                      /* If user is logged in but has no role yet */
                       <div className="flex gap-2">
-                        <Link to="/hr-join" className="text-xs font-bold bg-indigo-600 px-5 py-2 rounded-full text-white hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-500/20">Join as HR</Link>
-                        <Link to="/join" className="text-xs font-bold bg-white/5 border border-white/10 px-5 py-2 rounded-full text-white hover:bg-white/10 transition-all">Join as Employee</Link>
+                        <Link to="/hr-join" className="text-xs font-bold bg-indigo-600 px-5 py-2 rounded-full text-white hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-500/20">
+                          Join as HR
+                        </Link>
+                        <Link to="/join" className="text-xs font-bold bg-white/5 border border-white/10 px-5 py-2 rounded-full text-white hover:bg-white/10 transition-all">
+                          Join as Employee
+                        </Link>
                       </div>
                     )}
                   </div>
                   
-                  <button onClick={handleLogout} className="text-xs font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">Logout</button>
+                  <button onClick={handleLogout} className="text-xs font-bold text-gray-400 hover:text-white transition-colors uppercase tracking-widest">
+                    Logout
+                  </button>
                 </>
               ) : (
-                <Link to="/login" className="px-7 py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold uppercase tracking-widest shadow-lg transition-all">Login</Link>
+                <Link to="/login" className="px-7 py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold uppercase tracking-widest shadow-lg transition-all">
+                  Login
+                </Link>
               )}
             </div>
 
-            {/* PROFILE & MOBILE TOGGLE */}
+            {/* PROFILE IMAGE & MOBILE TOGGLE */}
             <div className="flex items-center gap-3">
               {user && (
                 <img
                   className="w-10 h-10 md:w-11 md:h-11 rounded-full object-cover border-2 border-white/10 shadow-2xl"
                   src={user?.photoURL || avatarImg}
-                  alt="profiLE"
+                  alt="profile"
                 />
               )}
 
@@ -126,18 +134,19 @@ const Navbar = () => {
               <hr className="border-white/5 my-2" />
               
               {user ? (
-                <>
-                  <div className="flex flex-col gap-4">
-                    {role && <span className="text-indigo-400 text-xs">Role: {role}</span>}
-                    {!role && (
-                      <>
-                        <Link onClick={() => setIsOpen(false)} to="/hr-join" className="text-indigo-400">Join as HR</Link>
-                        <Link onClick={() => setIsOpen(false)} to="/join" className="text-white">Join as Employee</Link>
-                      </>
-                    )}
-                    <button onClick={handleLogout} className="text-left text-red-500">Logout</button>
-                  </div>
-                </>
+                <div className="flex flex-col gap-4">
+                  {role === 'hr' ? (
+                    <span className="text-indigo-400 text-sm">Role: You Are HR</span>
+                  ) : role === 'employee' ? (
+                    <span className="text-green-400 text-sm">Role: You Are Employee</span>
+                  ) : (
+                    <>
+                      <Link onClick={() => setIsOpen(false)} to="/hr-join" className="text-indigo-400">Join as HR</Link>
+                      <Link onClick={() => setIsOpen(false)} to="/join" className="text-white">Join as Employee</Link>
+                    </>
+                  )}
+                  <button onClick={handleLogout} className="text-left text-red-500 mt-2">Logout</button>
+                </div>
               ) : (
                 <Link onClick={() => setIsOpen(false)} to="/login" className="bg-indigo-600 text-center py-3 rounded-xl text-white">Login</Link>
               )}
