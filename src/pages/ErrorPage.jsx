@@ -41,7 +41,7 @@ const ErrorPage = () => {
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center justify-center px-6 py-2 rounded-lg bg-gray-700 hover:bg-gray-600 text-white transition-colors duration-200"
+            className="flex items-center justify-center px-6 py-2 rounded-lg bg-indigo-600 text-white transition-colors duration-200"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

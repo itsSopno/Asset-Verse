@@ -5,8 +5,6 @@ import { toast } from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useForm } from "react-hook-form";
 import { imageUpload, saveOrUpdateUser } from "../../utils";
-import gsap from "gsap";
-import { useEffect, useRef } from "react";
 
 const SignUp = () => {
   const { createUser, updateUserProfile, signInWithGoogle, loading } = useAuth();
@@ -20,67 +18,31 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
-  // GSAP refs
-  const containerRef = useRef(null);
-  const formRef = useRef(null);
-  const headingRef = useRef(null);
-
-  useEffect(() => {
-    gsap.from(containerRef.current, {
-      opacity: 0,
-      y: 20,
-      duration: 0.8,
-      ease: "power2.out",
-    });
-
-    gsap.from(headingRef.current, {
-      opacity: 0,
-      y: 10,
-      duration: 0.7,
-      delay: 0.2,
-      ease: "power2.out",
-    });
-
-    gsap.from(formRef.current.children, {
-      opacity: 0,
-      y: 15,
-      duration: 0.6,
-      stagger: 0.12,
-      delay: 0.3,
-      ease: "power2.out",
-    });
-  }, []);
-
   const onSubmit = async (data) => {
     const { name, image, email, password } = data;
     const imageFile = image[0];
 
     try {
       const imageURL = await imageUpload(imageFile);
-
       const result = await createUser(email, password);
-
       await saveOrUpdateUser({ name, email, image: imageURL });
-
       await updateUserProfile(name, imageURL);
 
       navigate(from, { replace: true });
       toast.success("Signup Successful");
     } catch (err) {
-      toast.error(err?.message);
+      toast.error(err?.message || "Signup failed");
     }
   };
 
   const handleGoogleSignIn = async () => {
     try {
       const { user } = await signInWithGoogle();
-
       await saveOrUpdateUser({
         name: user?.displayName,
         email: user?.email,
         image: user?.photoURL,
       });
-
       navigate(from, { replace: true });
       toast.success("Signup Successful");
     } catch (err) {
@@ -89,127 +51,110 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#0f0f1c] p-6 relative overflow-hidden">
-      {/* Glass Glow */}
-      <div className="absolute inset-0 before:absolute before:inset-0 before:bg-gradient-to-b before:from-white/10 before:to-transparent before:blur-[100px] before:opacity-20 pointer-events-none" />
+    <div className="min-h-screen flex items-center justify-center bg-[#0f0f1c] p-6 relative">
+      {/* Background Decor */}
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 pointer-events-none" />
 
-      <div
-        ref={containerRef}
-        className="w-full max-w-lg bg-[#0f0f1c]/40 backdrop-blur-xl p-10 rounded-2xl border border-indigo-500/20 shadow-[0_0_40px_rgba(80,80,255,0.35)] relative z-10 text-white"
-      >
+      <div className="w-full max-w-lg bg-[#0f0f1c] p-8 md:p-10 rounded-2xl border border-white/10 shadow-2xl relative z-10 text-white">
         {/* HEADER */}
-        <div className="mb-8 text-center space-y-2" ref={headingRef}>
-          <h1 className="text-4xl font-bold text-indigo-400 drop-shadow-xl">
+        <div className="mb-8 text-center">
+          <h1 className="text-3xl font-bold text-white">
             Create Your Account
           </h1>
-          <p className="text-gray-400 text-sm">Join AssetVerse ecosystem</p>
+          <p className="text-gray-400 text-sm mt-2">
+            Join the AssetVerse ecosystem
+          </p>
         </div>
 
         {/* FORM */}
-        <form
-          ref={formRef}
-          onSubmit={handleSubmit(onSubmit)}
-          className="space-y-6"
-          noValidate
-        >
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
           {/* NAME */}
           <div>
-            <label className="text-sm text-gray-300 mb-1 block">Full Name</label>
+            <label className="text-sm font-medium text-gray-300 mb-1 block">Full Name</label>
             <input
               type="text"
               placeholder="Enter your name"
-              className="w-full px-4 py-3 bg-white/10 border border-indigo-500/20 rounded-lg outline-none focus:ring-2 focus:ring-indigo-500 transition"
-              {...register("name", {
-                required: "Name is required",
-                maxLength: { value: 20, message: "Name too long" },
-              })}
+              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-indigo-500 transition-all"
+              {...register("name", { required: "Name is required" })}
             />
-            {errors.name && (
-              <p className="text-red-400 text-xs mt-1">{errors.name.message}</p>
-            )}
+            {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name.message}</p>}
           </div>
 
           {/* IMAGE */}
           <div>
-            <label className="text-sm text-gray-300 mb-1 block">Profile Image</label>
+            <label className="text-sm font-medium text-gray-300 mb-1 block">Profile Image</label>
             <input
               type="file"
               accept="image/*"
-              className="w-full text-sm bg-white/5 rounded-lg border border-dashed border-indigo-500/30 p-3 cursor-pointer file:bg-indigo-600 file:text-white file:border-none file:px-4 file:py-2 file:rounded-md"
-              {...register("image")}
+              className="w-full text-sm bg-white/5 rounded-xl border border-white/10 p-2.5 cursor-pointer file:bg-indigo-600 file:text-white file:border-none file:px-4 file:py-1.5 file:rounded-lg file:mr-4"
+              {...register("image", { required: "Image is required" })}
             />
+            {errors.image && <p className="text-red-400 text-xs mt-1">{errors.image.message}</p>}
           </div>
 
           {/* EMAIL */}
           <div>
-            <label className="text-sm text-gray-300 mb-1 block">Email Address</label>
+            <label className="text-sm font-medium text-gray-300 mb-1 block">Email Address</label>
             <input
               type="email"
               placeholder="Enter your email"
-              className="w-full px-4 py-3 bg-white/10 border border-indigo-500/20 rounded-lg outline-none focus:ring-2 focus:ring-indigo-500 transition"
-              {...register("email", {
+              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-indigo-500 transition-all"
+              {...register("email", { 
                 required: "Email is required",
-                pattern: {
-                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                  message: "Invalid email",
-                },
+                pattern: { value: /^\S+@\S+$/i, message: "Invalid email" }
               })}
             />
-            {errors.email && (
-              <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>
-            )}
+            {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>}
           </div>
 
           {/* PASSWORD */}
           <div>
-            <label className="text-sm text-gray-300 mb-1 block">Password</label>
+            <label className="text-sm font-medium text-gray-300 mb-1 block">Password</label>
             <input
               type="password"
-              placeholder="*******"
-              autoComplete="new-password"
-              className="w-full px-4 py-3 bg-white/10 border border-indigo-500/20 rounded-lg outline-none focus:ring-2 focus:ring-indigo-500 transition"
-              {...register("password", {
+              placeholder="••••••••"
+              className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl outline-none focus:border-indigo-500 transition-all"
+              {...register("password", { 
                 required: "Password is required",
-                minLength: { value: 6, message: "Minimum 6 characters" },
+                minLength: { value: 6, message: "Minimum 6 characters" }
               })}
             />
-            {errors.password && (
-              <p className="text-red-400 text-xs mt-1">{errors.password.message}</p>
-            )}
+            {errors.password && <p className="text-red-400 text-xs mt-1">{errors.password.message}</p>}
           </div>
 
           {/* CREATE ACCOUNT BUTTON */}
           <button
+            disabled={loading}
             type="submit"
-            className="w-full bg-indigo-600 text-white  hover:bg-indigo-700 py-3 rounded-lg transition font-semibold shadow-lg flex justify-center items-center"
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3.5 rounded-xl font-bold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
-           Create ACCOUNT
+            {loading ? <TbFidgetSpinner className="animate-spin mx-auto" size={24} /> : "CREATE ACCOUNT"}
           </button>
         </form>
 
         {/* OR LINE */}
-        <div className="flex items-center space-x-3 my-6">
-          <div className="flex-1 h-px bg-gray-700" />
-          <p className="text-gray-400 text-sm">OR</p>
-          <div className="flex-1 h-px bg-gray-700" />
+        <div className="flex items-center space-x-3 my-7">
+          <div className="flex-1 h-px bg-white/10" />
+          <p className="text-gray-500 text-xs font-bold uppercase">OR</p>
+          <div className="flex-1 h-px bg-white/10" />
         </div>
 
         {/* GOOGLE BUTTON */}
         <button
           onClick={handleGoogleSignIn}
-          className="w-full flex items-center justify-center gap-3 py-3 border border-indigo-500/20 bg-white/10 rounded-lg hover:bg-white/20 transition cursor-pointer"
+          className="w-full flex items-center justify-center gap-3 py-3 border border-white/10 bg-white/5 rounded-xl hover:bg-white/10 transition-all font-medium cursor-pointer"
         >
-          <FcGoogle size={30} />
+          <FcGoogle size={24} />
           <span>Continue with Google</span>
         </button>
 
         {/* LOGIN LINK */}
-        <p className="text-center text-gray-400 text-sm mt-6">
+        <p className="text-center text-gray-400 text-sm mt-8">
           Already have an account?{" "}
           <Link
             to="/login"
             state={from}
-            className="inline-block px-4 py-2 bg-indigo-500 hover:bg-indigo-600 rounded-lg text-white font-semibold transition shadow-lg"
+            className="text-indigo-400 font-bold hover:underline"
           >
             Login
           </Link>
