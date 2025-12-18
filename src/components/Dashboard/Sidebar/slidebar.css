@@ -1,0 +1,17 @@
+/* Sidebar Premium Glow */
+.sidebar-glow {
+  position: relative;
+}
+.sidebar-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  padding: 2px;
+  background: linear-gradient(120deg, #9F7AEA, #4C1D95, #3B82F6);
+  -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude; 
+}

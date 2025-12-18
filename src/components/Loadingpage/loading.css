@@ -1,0 +1,32 @@
+.loading-screen {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(-45deg, #6b5b95, #feb236, #d64161, #ff7b25);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+/* app.css */
+.noise-overlay {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.13;
+  mix-blend-mode: soft-light;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.loading-title {
+  font-size: 4rem;
+  font-weight: 900;
+  color: white;
+  text-shadow: 2px 2px 12px rgba(0,0,0,0.4);
+}

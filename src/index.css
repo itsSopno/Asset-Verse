@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+@plugin "daisyui";
+
+
+:root{
+    background-color: #0A0A14;
+    font-family: 'Playfair Display', serif;
+
+}
