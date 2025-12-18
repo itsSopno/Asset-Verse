@@ -22,44 +22,41 @@ const Profile = () => {
   const cardRef = useRef(null)
   const avatarRef = useRef(null)
 
+  // Fetch detailed user profile from DB
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const { data } = await axiosSecure.get('/user/profile')
         setForm({
-          photoURL: data.photoURL || '',
+          photoURL: data.photoURL || user?.photoURL || '',
           coverImage: data.coverImage || ''
         })
       } catch (err) {
-        console.error(err)
+        console.error('Error fetching profile data:', err)
       }
     }
-    fetchUserData()
-  }, [])
+    if (user) fetchUserData()
+  }, [user, axiosSecure])
 
+  // GSAP Animations
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from(cardRef.current, { opacity: 0, y: 40, duration: 1, ease: 'power4.out' })
-      gsap.from(avatarRef.current, { scale: 0.9, opacity: 0, duration: 0.8, delay: 0.2, ease: 'power3.out' })
+      gsap.from(avatarRef.current, { scale: 0.8, opacity: 0, duration: 0.8, delay: 0.3, ease: 'power3.out' })
     })
     return () => ctx.revert()
   }, [])
 
-  const { data: history = [], isLoading } = useQuery({
+  // Fetch Employment History with Email Filter
+  const { data: history = [], isLoading: isHistoryLoading } = useQuery({
     queryKey: ['getTeam', user?.email],
-    enabled: !!user,
+    enabled: !!user && role === 'employee', 
     queryFn: async () => {
       const token = await user.getIdToken(true)
       const allHistory = await getTeam(token)
-
-      const companyNameSet = new Set()
-      allHistory.forEach(entry => {
-        if (entry.companyName) companyNameSet.add(entry.companyName)
-      })
-
-      return allHistory.filter(
-        entry => entry.companyName && companyNameSet.has(entry.companyName)
-      )
+      
+    
+      return allHistory.filter(entry => entry.employeeEmail === user?.email)
     },
   })
 
@@ -112,107 +109,115 @@ const Profile = () => {
     <section className="min-h-screen bg-[#0B0F19] px-4 py-12 flex justify-center">
       <div
         ref={cardRef}
-        className="w-full max-w-5xl bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-lg"
+        className="w-full max-w-5xl bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl relative"
       >
-        {/* Cover */}
-        <div className="relative h-56 md:h-64 w-full">
+        {/* Cover Section */}
+        <div className="relative h-56 md:h-72 w-full bg-indigo-900/20">
           <img
-            src={form.coverImage || '/default-cover.jpg'}
+            src={form.coverImage || 'https://i.ibb.co/3Y8pY8X/default-cover.jpg'}
             alt="cover"
-            className="absolute inset-0 w-full h-full object-cover opacity-40"
+            className="absolute inset-0 w-full h-full object-cover opacity-60"
           />
-          <label className="absolute bottom-4 right-4 cursor-pointer bg-white/20 px-3 py-1 rounded transition hover:bg-white/30">
+          <label className="absolute top-4 right-4 cursor-pointer bg-black/40 hover:bg-black/60 text-white text-xs px-4 py-2 rounded-lg transition-all backdrop-blur-md">
             <input
               type="file"
               accept="image/*"
               className="hidden"
               onChange={e => handleImageUpload(e, 'cover')}
             />
-            Upload
+            Change Cover
           </label>
         </div>
 
-        {/* Avatar */}
-        <div className="relative w-28 h-28 md:w-32 md:h-32 mx-auto -mt-14 md:-mt-16">
+        {/* Avatar Section */}
+        <div className="relative w-32 h-32 md:w-40 md:h-40 mx-auto -mt-16 md:-mt-20 group">
           <img
             ref={avatarRef}
-            src={form.photoURL || '/default-avatar.png'}
+            src={form.photoURL || 'https://i.ibb.co/rtp9999/default-avatar.png'}
             alt="avatar"
-            className="w-full h-full rounded-full border border-white/20 object-cover"
+            className="w-full h-full rounded-full border-4 border-[#0B0F19] object-cover shadow-2xl"
           />
-          <label className="absolute inset-0 cursor-pointer flex items-center justify-center rounded-full">
+          <label className="absolute inset-0 cursor-pointer flex items-center justify-center rounded-full opacity-0 group-hover:opacity-100 transition-opacity bg-black/50">
             <input
               type="file"
               accept="image/*"
               className="hidden"
               onChange={e => handleImageUpload(e, 'avatar')}
             />
-            <span className="text-white text-sm bg-black/50 px-2 py-1 rounded">Edit</span>
+            <span className="text-white text-xs font-bold bg-indigo-600 px-3 py-1 rounded-full">Edit Photo</span>
           </label>
         </div>
 
-        {/* Role */}
-        <div className="flex justify-center mt-4">
-          <span className="px-4 py-1 text-xs md:text-sm tracking-wide rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-            {isRoleLoading ? 'loading...' : role}
+        {/* User Role Badge */}
+        <div className="flex justify-center mt-6">
+          <span className="px-6 py-1.5 text-xs font-bold tracking-widest rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase">
+            {isRoleLoading ? 'Loading...' : role || 'No Role'}
           </span>
         </div>
 
-        {/* Info */}
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 px-6 md:px-12">
-          <div className="rounded-xl bg-white/5 border border-white/10 p-4">
-            <p className="text-xs text-gray-400">Name</p>
-            <p className="mt-1 text-white font-medium">{user?.displayName}</p>
+        {/* Profile Info */}
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 px-6 md:px-16 text-center md:text-left">
+          <div className="rounded-2xl bg-white/5 border border-white/10 p-5">
+            <p className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Full Name</p>
+            <p className="mt-1 text-xl text-white font-semibold">{user?.displayName || 'User Name'}</p>
           </div>
-          <div className="rounded-xl bg-white/5 border border-white/10 p-4">
-            <p className="text-xs text-gray-400">Email</p>
-            <p className="mt-1 text-white font-medium break-all">{user?.email}</p>
+          <div className="rounded-2xl bg-white/5 border border-white/10 p-5">
+            <p className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Email Address</p>
+            <p className="mt-1 text-lg text-white font-medium break-all">{user?.email}</p>
           </div>
         </div>
 
-        {/* History Table */}
-       {user.role === "employee" ? (
-  <div className="mt-10 px-4 md:px-12 overflow-x-auto">
-    <table className="min-w-full text-left divide-y divide-white/10">
-      <thead>
-        <tr className="text-gray-400 text-sm uppercase">
-          <th className="px-6 py-3">Employee</th>
-          <th className="px-6 py-3">Performed By</th>
-          <th className="px-6 py-3">Company</th>
-          <th className="px-6 py-3">Date</th>
-        </tr>
-      </thead>
-      <tbody className="divide-y divide-white/5">
-        {history.map((entry) => (
-          <tr key={entry._id} className="hover:bg-white/5 transition">
-            <td className="px-6 py-4 font-medium">
-              {entry.employeeName || entry.employeeEmail}
-            </td>
-            <td className="px-6 py-4 text-gray-400">
-              {entry.performedBy || entry.hrEmail}
-            </td>
-            <td className="px-6 py-4 text-gray-400">{entry.companyName}</td>
-            <td className="px-6 py-4 text-gray-400">
-              {new Date(entry.date).toLocaleDateString()}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-) : (
-  <h1 className="text-center mt-10">Nothing</h1>
-)}
-      
+        {/* ✅ History Table Section (Only for Employees) */}
+        {!isRoleLoading && role === 'employee' && (
+          <div className="mt-12 px-6 md:px-16 pb-10">
+            <div className="flex items-center gap-4 mb-6">
+              <h2 className="text-xl font-bold text-white">Employment History</h2>
+              <div className="h-px flex-1 bg-white/10"></div>
+            </div>
+            
+            <div className="overflow-x-auto rounded-2xl border border-white/5 bg-[#0F172A]/50">
+              <table className="min-w-full text-left">
+                <thead>
+                  <tr className="text-gray-400 text-[11px] uppercase tracking-widest border-b border-white/10 bg-white/5">
+                    <th className="px-6 py-4">Company Name</th>
+                    <th className="px-6 py-4">Managed By (HR)</th>
+                    <th className="px-6 py-4">Joining Date</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/5 text-sm">
+                  {isHistoryLoading ? (
+                    <tr><td colSpan="3" className="px-6 py-10 text-center text-gray-500">Loading history...</td></tr>
+                  ) : history.length > 0 ? (
+                    history.map((entry) => (
+                      <tr key={entry._id} className="hover:bg-white/[0.02] transition">
+                        <td className="px-6 py-4 font-semibold text-indigo-300">{entry.companyName}</td>
+                        <td className="px-6 py-4 text-gray-400">{entry.performedBy || entry.hrEmail}</td>
+                        <td className="px-6 py-4 text-gray-400">
+                          {new Date(entry.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="3" className="px-6 py-16 text-center text-gray-500 italic">
+                        No official company assignment found.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
 
-        {/* Actions */}
-        <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4 px-6 md:px-12 mb-8">
+        {/* Update Button */}
+        <div className="mt-6 flex justify-center pb-12">
           <button
-            className="px-8 py-2 rounded-xl text-sm font-medium bg-white/10 text-white border border-white/20 hover:bg-white/20 transition"
+            className="px-10 py-3 rounded-2xl text-sm font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-500/20 hover:bg-indigo-700 transition-all disabled:opacity-50 active:scale-95"
             onClick={handleSaveProfile}
             disabled={loading}
           >
-            {loading ? 'Saving...' : 'Update Profile'}
+            {loading ? 'Processing...' : 'SAVE CHANGES'}
           </button>
         </div>
       </div>

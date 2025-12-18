@@ -17,15 +17,13 @@ const MyTeam = () => {
       const token = await user.getIdToken(true)
       const allHistory = await getTeam(token)
 
-      // Unique by companyName
-      const companyNameSet = new Set()
-      allHistory.forEach(entry => {
-        if (entry.companyName) companyNameSet.add(entry.companyName)
-      })
-
-      return allHistory.filter(
-        entry => entry.companyName && companyNameSet.has(entry.companyName)
+      // ফিল্টার লজিক: শুধু সেই ডাটা নিবে যার employeeEmail ইউজারের ইমেইলের সাথে মিলে
+      // এবং ডুপ্লিকেট কোম্পানি নেম হ্যান্ডেল করবে
+      const filteredData = allHistory.filter(
+        entry => entry.employeeEmail === user?.email
       )
+
+      return filteredData
     },
   })
 
@@ -33,7 +31,6 @@ const MyTeam = () => {
     if (!rows.current.length) return
 
     const ctx = gsap.context(() => {
-      // Container animation
       gsap.from(container.current, {
         opacity: 0,
         y: 30,
@@ -42,7 +39,6 @@ const MyTeam = () => {
         clearProps: 'all',
       })
 
-      // Row animation
       gsap.from(rows.current, {
         opacity: 0,
         y: 16,
@@ -65,14 +61,14 @@ const MyTeam = () => {
       <header className="mb-10">
         <h1 className="text-3xl font-semibold text-white">My Team</h1>
         <p className="text-gray-400 mt-2">
-          Overview of employees assigned to your company
+          Overview of your assignment details in the company
         </p>
       </header>
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
         <div className="relative bg-[#0F172A] border border-indigo-500/30 rounded-2xl p-6">
-          <p className="text-sm text-gray-400">Total COMPANY</p>
+          <p className="text-sm text-gray-400">Total Assignments</p>
           <p className="mt-3 text-3xl font-semibold text-white">{total}</p>
         </div>
       </div>
@@ -80,7 +76,7 @@ const MyTeam = () => {
       {/* Table */}
       <div className="bg-[#111827] border border-white/5 rounded-2xl overflow-hidden">
         <div className="px-6 py-5 border-b border-white/5">
-          <h2 className="text-lg font-medium text-white">Employee Records</h2>
+          <h2 className="text-lg font-medium text-white">My Employment History</h2>
         </div>
 
         {history.length ? (
@@ -118,7 +114,7 @@ const MyTeam = () => {
             </table>
           </div>
         ) : (
-          <div className="py-16 text-center text-gray-500">No employees assigned yet.</div>
+          <div className="py-16 text-center text-gray-500">No records found for your account.</div>
         )}
       </div>
     </section>
