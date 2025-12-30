@@ -89,12 +89,28 @@ cd assetverse
 
 
 ---
+npm install i
+npm install react-router
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+npm install daisyui
+npm install framer-motion
+npm install gsap
+npm install firebase
+npm i lenis
 
-## 👨‍💻 Author
-**Nabil Talukder**  
-Aspiring Full-Stack Developer | React & Backend Enthusiast
+.end file :
+REACT_APP_API_KEY=your_api_key
+REACT_APP_AUTH_DOMAIN=your_project.firebaseapp.com
+REACT_APP_PROJECT_ID=your_project_id
+REACT_APP_STORAGE_BUCKET=your_project.appspot.com
+REACT_APP_MESSAGING_SENDER_ID=your_sender_id
+REACT_APP_APP_ID=your_app_id
 
----
+npm start
+ 
+
+
 
 
 
