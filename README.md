@@ -78,30 +78,15 @@ This project was built as a **B2B SaaS-style application** inspired by platforms
 
 ---
 
----
+## 🔧 Installation / Run Locally
 
-## 🧪 Future Enhancements
-- Asset condition & damage reporting
-- Email notifications for approvals
-- CSV / Excel export
-- Advanced role permissions
-- Subscription & payment system
+Follow these steps to run **AssetVerse** on your local machine:
 
----
+1. **Clone the repository**  
+```bash
+git clone https://github.com/itsSopno/assetverse.git
+cd assetverse
 
-## 📌 Learning Outcomes
-- Built a real-world **B2B SaaS application**
-- Implemented secure authentication using JWT
-- Advanced animations with GSAP & Framer Motion
-- Improved dashboard UI/UX design skills
-- Practical experience with the React ecosystem
-
----
-
-## 🙌 Credits & Inspiration
-- BambooHR
-- Zoho People
-- Freshservice
 
 ---
 
