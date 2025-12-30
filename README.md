@@ -5,6 +5,9 @@ A modern **B2B HR & Asset Management Web Application** designed to help organiza
 AssetVerse streamlines asset tracking, improves accountability, and reduces administrative overhead for HR teams.
 
 ---
+## 🖥️ Dashboard Preview
+
+![Dashboard Screenshot](assets/dashboard.png)
 
 ## 🔗 Live Demo
 👉 https://asset-verse-n57c.vercel.app/
