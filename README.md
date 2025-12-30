@@ -7,7 +7,7 @@ AssetVerse streamlines asset tracking, improves accountability, and reduces admi
 ---
 ## 🖥️ Dashboard Preview
 
-![Dashboard Screenshot](assets/dashboard.png)
+![Dashboard Screenshot](verse-image/asset-dashboard.png)
 
 ## 🔗 Live Demo
 👉 https://asset-verse-n57c.vercel.app/
