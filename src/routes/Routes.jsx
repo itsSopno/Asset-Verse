@@ -30,6 +30,8 @@ import Myteam from '../components/MY TEAM/myteam'
 import MyInventorysuper from '../components/MY TEAM/myteam'
 import MyTeamInventoryHistory from '../components/MyTeamInventoryHistory/MyTeamInventoryHistory'
 import MyTeam from '../components/MY TEan/MyTeam'
+import AssetVerseLegal from '../components/AssetVerseLegal/AssetVerseLegal'
+import TestimonialsStats from '../components/Testimonila/Testimonial'
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -55,6 +57,14 @@ element :<JOINEmployee></JOINEmployee>
       {
         path: '/hr',
         element: <HRForm></HRForm>
+      },
+       {
+        path: '/legal',
+        element: <AssetVerseLegal></AssetVerseLegal>
+      },
+      {
+        path:"/testimonial",
+        element:<TestimonialsStats></TestimonialsStats>
       }
     ],
   },

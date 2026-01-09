@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 .loading-screen {
   width: 100vw;
   height: 100vh;
@@ -7,6 +8,9 @@
   background: linear-gradient(-45deg, #6b5b95, #feb236, #d64161, #ff7b25);
   background-size: 400% 400%;
   animation: gradientBG 15s ease infinite;
+}
+.body1{
+  font-family: "Bebas Neue", sans-serif;
 }
 /* app.css */
 .noise-overlay {

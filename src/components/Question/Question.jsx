@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { FaClipboardList, FaCheckCircle, FaPaperPlane } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaClipboardList, FaCheckCircle, FaPaperPlane, FaChevronDown } from "react-icons/fa";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import THANKS from "../Thanks/thanks";
@@ -19,138 +19,143 @@ const Questions = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-
-      // Fade in section
-      gsap.from(".questions-section", {
-        scrollTrigger: {
-          trigger: ".questions-section",
-          start: "top 80%",
-        },
+      // Professional Reveal
+      gsap.from(".section-header", {
+        scrollTrigger: ".section-header",
+        y: 40,
         opacity: 0,
-        y: 80,
-        duration: 1.2,
-        ease: "power3.out",
-      });
-
-      // Animate individual step cards
-      gsap.from(".how-step", {
-        scrollTrigger: {
-          trigger: ".questions-section",
-          start: "top 85%",
-        },
-        opacity: 0,
-        y: 50,
-        stagger: 0.2,
         duration: 1,
-        ease: "power3.out",
+        ease: "expo.out"
       });
 
-      // Animate FAQ items
-      gsap.from(".faq-item", {
-        scrollTrigger: {
-          trigger: ".faq-list",
-          start: "top 90%",
-        },
-        opacity: 0,
-        y: 30,
-        stagger: 0.15,
-        duration: 0.8,
-        ease: "power3.out",
+      // Animated connector line for steps
+      gsap.from(".step-line", {
+        scrollTrigger: ".step-line",
+        width: 0,
+        duration: 2,
+        ease: "power4.inOut"
       });
-
-      // Floating neon shards
-      const shards = document.querySelectorAll(".floating-shard");
-      shards.forEach(shard => {
-        gsap.to(shard, {
-          x: () => Math.random() * 40 - 20,
-          y: () => Math.random() * 30 - 15,
-          rotate: () => Math.random() * 20 - 10,
-          opacity: () => 0.1 + Math.random() * 0.3,
-          repeat: -1,
-          yoyo: true,
-          duration: 4 + Math.random() * 2,
-          ease: "sine.inOut"
-        });
-      });
-
     });
-
     return () => ctx.revert();
   }, []);
 
   return (
-    <section className="questions-section relative w-full bg-[#0f0f1c] py-20 px-6 md:px-12 overflow-hidden gap-9">
-      {/* Floating Neon Shards */}
+    <section className="questions-section relative w-full bg-[#0f0f1c] py-32 px-6 md:px-12 overflow-hidden">
+      
+      {/* Original Floating Shards kept as requested */}
       {[...Array(12)].map((_, i) => (
         <div
           key={i}
-          className="floating-shard absolute w-[80px] h-[2px] bg-indigo-400/20 rounded-full"
+          className="floating-shard absolute w-[80px] h-[1px] bg-indigo-500/10 rounded-full"
           style={{ top: `${Math.random() * 100}%`, left: `${Math.random() * 100}%` }}
         />
       ))}
 
       <div className="max-w-7xl mx-auto relative z-10">
+        
+        {/* HOW IT WORKS: Blueprint Style */}
+        <div className="mb-40">
+          <div className="section-header text-center mb-20">
+            <h2 className="text-xs font-mono tracking-[0.5em] text-indigo-400 uppercase mb-4">Workflow</h2>
+            <h3 className="text-4xl md:text-6xl font-black text-white tracking-tighter">How it <span className="italic font-light">works.</span></h3>
+          </div>
 
-        {/* How It Works */}
-        <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-white drop-shadow-[0_0_25px_rgba(125,108,255,0.6)] mb-12">
-            How It Works
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="relative grid grid-cols-1 md:grid-cols-3 gap-12">
+            {/* Desktop Connector Line */}
+            <div className="step-line hidden md:block absolute top-1/2 left-0 h-[1px] bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent w-full -z-10" />
+
             {[
-              { icon: FaClipboardList, title: "Step 1: Register", desc: "Employees and HR managers sign up and create their profiles." },
-              { icon: FaCheckCircle, title: "Step 2: Manage Assets", desc: "HR adds assets, approves requests, and assigns them to employees." },
-              { icon: FaPaperPlane, title: "Step 3: Track & Return", desc: "Employees track their assigned assets and return them if applicable." }
+              { icon: FaClipboardList, title: "Register", desc: "Initialize your corporate identity within the AssetVerse ecosystem." },
+              { icon: FaCheckCircle, title: "Management", desc: "HR controls asset lifecycle from acquisition to employee assignment." },
+              { icon: FaPaperPlane, title: "Deployment", desc: "Assets are tracked in real-time with automated return protocols." }
             ].map((step, i) => (
-              <div key={i} className="how-step bg-[#1a1a2e] border border-indigo-500/30 rounded-3xl p-8 text-center shadow-[0_0_30px_rgba(125,108,255,0.2)]">
-                <step.icon className="text-5xl text-indigo-400 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-white mb-2">{step.title}</h3>
-                <p className="text-gray-300 text-sm">{step.desc}</p>
+              <motion.div 
+                key={i} 
+                whileHover={{ y: -10 }}
+                className="bg-white/[0.02] border border-white/5 backdrop-blur-3xl p-10 rounded-[2.5rem] group hover:border-indigo-500/30 transition-all duration-500"
+              >
+                <div className="w-16 h-16 rounded-2xl bg-indigo-500/10 flex items-center justify-center mb-8 border border-indigo-500/20 group-hover:bg-indigo-500 group-hover:text-white transition-all duration-500 text-indigo-400">
+                  <step.icon size={28} />
+                </div>
+                <h4 className="text-white font-bold text-xl mb-4 tracking-tight">0{i+1}. {step.title}</h4>
+                <p className="text-gray-500 text-sm leading-relaxed">{step.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* FAQ: Clean Glassmorphism */}
+        <div className="flex flex-col lg:flex-row gap-20 mb-40">
+          <div className="lg:w-1/3">
+            <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter leading-tight mb-6">
+              General <br /> <span className="text-indigo-500">Inquiries.</span>
+            </h2>
+            <p className="text-gray-500 font-light text-lg">
+              Everything you need to know about the AssetVerse protocol and implementation.
+            </p>
+          </div>
+
+          <div className="lg:w-2/3 space-y-4">
+            {faqData.map((faq, idx) => (
+              <div key={idx} className="border-b border-white/5">
+                <button
+                  onClick={() => setOpenFAQ(openFAQ === idx ? null : idx)}
+                  className="w-full flex justify-between items-center py-8 text-left group"
+                >
+                  <span className={`text-xl transition-colors duration-300 ${openFAQ === idx ? 'text-indigo-400' : 'text-white group-hover:text-indigo-300'}`}>
+                    {faq.question}
+                  </span>
+                  <motion.div
+                    animate={{ rotate: openFAQ === idx ? 180 : 0 }}
+                    className="text-indigo-500"
+                  >
+                    <FaChevronDown />
+                  </motion.div>
+                </button>
+                <AnimatePresence>
+                  {openFAQ === idx && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="overflow-hidden"
+                    >
+                      <p className="pb-8 text-gray-500 leading-relaxed max-w-2xl text-lg font-light">
+                        {faq.answer}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             ))}
           </div>
         </div>
 
-        {/* FAQ Section */}
-        <div className="faq-list max-w-3xl mx-auto mb-20 space-y-4">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-center text-white drop-shadow-[0_0_25px_rgba(125,108,255,0.6)] mb-10">
-            Frequently Asked Questions
-          </h2>
-          {faqData.map((faq, idx) => (
-            <div key={idx} className="faq-item bg-[#1a1a2e] border border-indigo-500/30 rounded-2xl overflow-hidden shadow-[0_0_20px_rgba(125,108,255,0.15)]">
-              <button
-                onClick={() => setOpenFAQ(openFAQ === idx ? null : idx)}
-                className="w-full flex justify-between items-center p-4 text-left text-white font-medium focus:outline-none"
-              >
-                {faq.question}
-                <span className="text-indigo-400 text-2xl">{openFAQ === idx ? "−" : "+"}</span>
-              </button>
-              {openFAQ === idx && (
-                <div className="p-4 text-gray-300 border-t border-indigo-500/20">
-                  {faq.answer}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+        {/* CTA: Ultra-Minimalist High Contrast */}
+        <motion.div 
+          whileHover={{ scale: 1.01 }}
+          className="relative rounded-[3rem] bg-indigo-600 p-12 md:p-24 overflow-hidden text-center"
+        >
+          {/* Subtle noise/gradient texture */}
+          <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/asfalt-dark.png')]" />
+          
+          <div className="relative z-10">
+            <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter">
+              Ready for the <span className="text-black/30">Next Level?</span>
+            </h2>
+            <p className="text-indigo-100/80 mb-12 max-w-xl mx-auto text-lg md:text-xl font-light">
+              Join the corporate network. Optimize your resource distribution today.
+            </p>
+            <button className="bg-white text-black font-black uppercase tracking-widest text-xs py-5 px-12 rounded-full hover:bg-black hover:text-white transition-all duration-500 shadow-2xl">
+              Get Started Now
+            </button>
+          </div>
+        </motion.div>
+      </div>
 
-        {/* Contact CTA */}
-        <div className="bg-indigo-500/80 backdrop-blur-md rounded-3xl py-16 px-6 text-center text-white shadow-[0_0_40px_rgba(125,108,255,0.4)]">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 drop-shadow-[0_0_20px_rgba(255,255,255,0.4)]">
-            Get Started with AssetVerse Today
-          </h2>
-          <p className="mb-8 max-w-2xl mx-auto text-gray-100 text-lg md:text-xl leading-relaxed">
-            Join hundreds of companies already managing their assets efficiently. Sign up now and start tracking your company's resources seamlessly.
-          </p>
-          <button className="bg-white text-indigo-500 font-semibold py-3 px-8 rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:bg-indigo-100 transition-all">
-            Contact Us
-          </button>
-        </div>
+      <div className="pt-32">
+        <THANKS />
       </div>
-      <div className="pt-[30px]">
-        <THANKS></THANKS>
-      </div>
-     
     </section>
   );
 };

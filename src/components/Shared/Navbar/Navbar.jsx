@@ -55,6 +55,8 @@ const Navbar = () => {
             <ul className="hidden lg:flex items-center gap-8 text-sm font-semibold tracking-widest text-white/80">
               <li><Link className="hover:text-white transition-colors" to="/">HOME</Link></li>
               {user && <li><Link className="hover:text-white transition-colors" to="/dashboard">DASHBOARD</Link></li>}
+                 <li><Link className="hover:text-white transition-colors" to="/legal">LEGAL</Link></li>
+                  <li><Link className="hover:text-white transition-colors" to="/testimonial">TESTIMONIAL</Link></li>
             </ul>
           </div>
 
