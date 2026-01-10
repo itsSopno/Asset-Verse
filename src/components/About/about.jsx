@@ -128,7 +128,7 @@
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { FaBuilding, FaUsersCog, FaShieldAlt, FaChartLine, FaCheck } from "react-icons/fa";
 import { useRef } from "react";
-
+import './about.css'
 const benefits = [
   {
     title: "Centralized Asset Control",
@@ -168,10 +168,8 @@ const AboutAssetVerseScroll = () => {
   const opacity = useTransform(springScroll, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   return (
-    <section ref={ref} className="relative py-32 bg-[#0f0f1c] px-6 md:px-12 overflow-hidden">
-      
-      {/* Original Neon Auras kept as requested */}
-      <motion.div
+    <section style={{ color: 'var(--text-main)' }} ref={ref}className="beveled-shape relative py-32 px-6 md:px-12 overflow-hidden">
+       <motion.div
         className="absolute w-[500px] h-[500px] bg-indigo-500/20 blur-[200px] rounded-full top-20 left-10"
         animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
         transition={{ duration: 10, repeat: Infinity }}
@@ -182,7 +180,7 @@ const AboutAssetVerseScroll = () => {
         transition={{ duration: 8, repeat: Infinity }}
       />
 
-      <motion.div style={{ opacity, rotateX, perspective: "1000px" }} className="relative z-10 max-w-7xl mx-auto">
+      <motion.div style={{ opacity, rotateX, perspective: "1000px" }} className="relative z-10 max-w-7xl mx-auto"> 
         
         {/* TOP SECTION: Split Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-32">
@@ -190,9 +188,9 @@ const AboutAssetVerseScroll = () => {
             <motion.div 
               initial={{ width: 0 }} 
               whileInView={{ width: "80px" }} 
-              className="h-1 bg-indigo-500 mb-8" 
+              className="h-1  mb-8" 
             />
-            <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-8 leading-[0.9]">
+            <h2  style={{ color: 'var(--text-main)' }} className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-8 leading-[0.9]">
               THE FUTURE OF <br /> 
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-500">
                 ASSET INTELLIGENCE.
@@ -208,7 +206,7 @@ const AboutAssetVerseScroll = () => {
           <div className="relative group">
             <div className="absolute -inset-4 bg-indigo-500/10 rounded-[2rem] blur-2xl group-hover:bg-indigo-500/20 transition-all duration-700" />
             <div className="relative bg-white/[0.03] border border-white/10 backdrop-blur-3xl rounded-[2.5rem] p-10 md:p-12 shadow-2xl">
-              <p className="text-gray-300 text-lg leading-relaxed italic font-light">
+              <p  style={{ color: 'var(--text-main)' }} className="text-gray-300 text-lg leading-relaxed italic font-light">
                 "From hardware lifecycles to cross-company tracking, we provide the 
                 infrastructure for businesses to manage their inventory, approve 
                 requests, and scale subscriptions from a single, unified Command Center."
@@ -240,7 +238,7 @@ const AboutAssetVerseScroll = () => {
                 <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center mb-6 border border-white/10 group-hover:border-indigo-500/50 transition-colors">
                   <item.icon className="text-2xl text-indigo-400" />
                 </div>
-                <h3 className="text-white font-bold text-lg mb-3 tracking-tight group-hover:text-indigo-300 transition-colors">
+                <h3  style={{ color: 'var(--text-main)' }} className="text-white font-bold text-lg mb-3 tracking-tight group-hover:text-indigo-300 transition-colors">
                   {item.title}
                 </h3>
                 <p className="text-gray-500 text-sm leading-relaxed group-hover:text-gray-300 transition-colors">
@@ -256,7 +254,7 @@ const AboutAssetVerseScroll = () => {
           <h3 className="text-indigo-400 font-mono text-xs uppercase tracking-[0.6em] opacity-40 mb-4">
             Operational Excellence
           </h3>
-          <p className="text-3xl md:text-4xl font-extralight text-white/80 tracking-tight">
+          <p  style={{ color: 'var(--text-main)' }} className="text-3xl md:text-4xl font-extralight text-white/80 tracking-tight">
             Smart Asset Control for <span className="font-bold text-white">Smarter Businesses.</span>
           </p>
         </div>

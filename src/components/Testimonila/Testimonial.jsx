@@ -187,7 +187,7 @@ const TestimonialsStats = () => {
   const scrollContainerRef = useRef(null);
 
   return (
-    <section className="relative h-screen w-full bg-[#0a0a14] overflow-hidden flex flex-col md:flex-row">
+    <section className="relative h-screen w-full  overflow-hidden flex flex-col md:flex-row">
       
       {/* 1. FIXED BACKGROUND AURAS */}
       <motion.div
@@ -197,7 +197,7 @@ const TestimonialsStats = () => {
       />
 
       {/* 2. LEFT PANEL: Fixed Identity & Stats (40% Width) */}
-      <div className="relative z-10 w-full md:w-[40%] h-full p-12 md:p-24 flex flex-col justify-between border-r border-white/5 bg-black/20 backdrop-blur-xl">
+      <div className="beveled-top-left relative z-10 w-full md:w-[40%] h-full p-12 md:p-24 flex flex-col justify-between border-r border-white/5 bg-black/20 backdrop-blur-xl">
         <div>
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -208,7 +208,7 @@ const TestimonialsStats = () => {
             <span className="font-mono text-xs tracking-[0.5em] text-white/40 uppercase">Verified Ecosystem</span>
           </motion.div>
 
-          <h2 className="text-5xl md:text-7xl font-black text-white leading-[0.9] tracking-tighter mb-8">
+          <h2 style={{ color: 'var(--text-main)' }} className="text-5xl md:text-7xl font-black text-white leading-[0.9] tracking-tighter mb-8">
             TRUSTED <br /> 
             <span className="text-indigo-500">AT SCALE.</span>
           </h2>
@@ -231,7 +231,7 @@ const TestimonialsStats = () => {
                 <stat.icon className="text-2xl" />
               </div>
               <div>
-                <h3 className="text-3xl font-bold text-white tabular-nums">{stat.value}</h3>
+                <h3 style={{ color: 'var(--text-main)' }} className="text-3xl font-bold text-white tabular-nums">{stat.value}</h3>
                 <p className="text-[10px] font-mono text-white/20 uppercase tracking-widest">{stat.label}</p>
               </div>
             </motion.div>
@@ -258,7 +258,7 @@ const TestimonialsStats = () => {
                 {item.id}
               </span>
               <div className="relative z-10">
-                <p className="text-3xl md:text-5xl font-light text-white leading-tight tracking-tight mb-10 italic">
+                <p style={{ color: 'var(--text-main)' }} className="text-3xl md:text-5xl font-light text-white leading-tight tracking-tight mb-10 italic">
                   "{item.testimonial}"
                 </p>
                 <div className="flex items-center gap-6">

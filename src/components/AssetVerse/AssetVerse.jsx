@@ -87,11 +87,11 @@ const AssetVerseHero = ({
             key={i}
             className="flex items-center gap-16 sm:gap-28 w-full px-6 sm:px-14"
           >
-            <h1 className="text-[14vw] sm:text-[9vw] md:text-[7vw] font-extrabold uppercase text-white whitespace-nowrap tracking-tight">
+            <h1  style={{ color: 'var(--text-main)' }} className="text-[14vw] sm:text-[9vw] md:text-[7vw] font-extrabold uppercase text-white whitespace-nowrap tracking-tight">
               {primaryText}
             </h1>
 
-            <h1 className="text-[14vw] sm:text-[9vw] md:text-[7vw] font-extrabold uppercase text-white whitespace-nowrap tracking-tight opacity-80">
+            <h1  style={{ color: 'var(--text-main)' }} className="text-[14vw] sm:text-[9vw] md:text-[7vw] font-extrabold uppercase text-white whitespace-nowrap tracking-tight opacity-80">
               {secondaryText}
             </h1>
           </div>

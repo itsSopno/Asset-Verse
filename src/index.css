@@ -3,7 +3,7 @@
 
 
 :root{
-    background-color: #0A0A14;
+   
     font-family: 'Playfair Display', serif;
 
 }
@@ -25,4 +25,77 @@ html.lenis, html.lenis body {
 
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
+}
+/* root variable for light mode */
+:root {
+  --bg-main: #f2f3f4;
+  --bg-secend:#2c2c2e;
+  --text-main: #1a1a1a;
+  --nav-bg: rgba(255, 255, 255, 0.8);
+  --border-color: rgba(0, 0, 0, 0.1);
+  --glow-opacity: 0; /* Light mode এ গ্লো অফ */
+  --gradient-start: #353A5F; 
+  --gradient-end: #9EBAF3;  
+  --brand-gradient: linear-gradient(135deg, #9EBAF3 0%, #ffffff 100%);
+  --accent-color: #353A5F;
+}
+
+/* Dark mode variables */
+html.dark {
+  --bg-main: #0b0b15;
+   --gradiant-start: #0b0b15;
+   --gradiant-end:#0b0b15;
+  --text-main: #ffffff;
+  --nav-bg: rgba(11, 11, 21, 0.85);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --glow-opacity: 1; /* Dark mode এ গ্লো অন */
+  --brand-gradient: linear-gradient(135deg, #353A5F 0%, #9EBAF3 100%);
+  --accent-color: #9EBAF3;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  transition: background-color 0.3s ease;
+  /* margin: 0; */
+    font-family: 'Playfair Display', serif;
+ 
+}
+
+/* Glow Animations */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.15); opacity: 0.6; }
+}
+
+.glow-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: var(--glow-opacity);
+  transition: opacity 0.5s ease;
+}
+
+.glow-indigo {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.25) 0%, transparent 70%);
+  top: -10%;
+  left: -10%;
+  filter: blur(100px);
+  animation: pulse 12s infinite ease-in-out;
+}
+
+.glow-pink {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.15) 0%, transparent 70%);
+  bottom: -5%;
+  right: -5%;
+  filter: blur(80px);
+  animation: pulse 10s infinite ease-in-out reverse;
 }

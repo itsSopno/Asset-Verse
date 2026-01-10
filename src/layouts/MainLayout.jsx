@@ -20,6 +20,10 @@ const MainLayout = () => {
 
   return (
     <div className="relative">
+      <div className="glow-wrapper">
+        <div className="glow-indigo"></div>
+        <div className="glow-pink"></div>
+      </div>
       <Navbar />
 
       {/* AnimatePresence wraps Outlet for page transitions */}

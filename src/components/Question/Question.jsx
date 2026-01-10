@@ -40,7 +40,8 @@ const Questions = () => {
   }, []);
 
   return (
-    <section className="questions-section relative w-full bg-[#0f0f1c] py-32 px-6 md:px-12 overflow-hidden">
+    <section style={{ backgroundColor: 'var(--bg-main)' }}
+    className="questions-section relative w-full --bg-main py-32 px-6 md:px-12 overflow-hidden">
       
       {/* Original Floating Shards kept as requested */}
       {[...Array(12)].map((_, i) => (
@@ -57,7 +58,7 @@ const Questions = () => {
         <div className="mb-40">
           <div className="section-header text-center mb-20">
             <h2 className="text-xs font-mono tracking-[0.5em] text-indigo-400 uppercase mb-4">Workflow</h2>
-            <h3 className="text-4xl md:text-6xl font-black text-white tracking-tighter">How it <span className="italic font-light">works.</span></h3>
+            <h3 style={{ color: 'var( --text-main)' }}className="text-4xl md:text-6xl font-black text-white tracking-tighter">How it <span className="italic font-light">works.</span></h3>
           </div>
 
           <div className="relative grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -77,7 +78,7 @@ const Questions = () => {
                 <div className="w-16 h-16 rounded-2xl bg-indigo-500/10 flex items-center justify-center mb-8 border border-indigo-500/20 group-hover:bg-indigo-500 group-hover:text-white transition-all duration-500 text-indigo-400">
                   <step.icon size={28} />
                 </div>
-                <h4 className="text-white font-bold text-xl mb-4 tracking-tight">0{i+1}. {step.title}</h4>
+                <h4 style={{ color: 'var( --text-main)' }} className="text-white font-bold text-xl mb-4 tracking-tight">0{i+1}. {step.title}</h4>
                 <p className="text-gray-500 text-sm leading-relaxed">{step.desc}</p>
               </motion.div>
             ))}
@@ -102,7 +103,7 @@ const Questions = () => {
                   onClick={() => setOpenFAQ(openFAQ === idx ? null : idx)}
                   className="w-full flex justify-between items-center py-8 text-left group"
                 >
-                  <span className={`text-xl transition-colors duration-300 ${openFAQ === idx ? 'text-indigo-400' : 'text-white group-hover:text-indigo-300'}`}>
+                  <span style={{ color: 'var( --text-main)' }}  className={`text-xl transition-colors duration-300 ${openFAQ === idx ? 'text-indigo-400' : 'text-white group-hover:text-indigo-300'}`}>
                     {faq.question}
                   </span>
                   <motion.div

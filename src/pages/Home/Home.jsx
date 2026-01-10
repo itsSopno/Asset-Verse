@@ -29,7 +29,9 @@ const Home = () => {
       animate="visible"
       exit="exit"
       transition={pageTransition}
-      className="bg-[#05050a] text-white overflow-x-hidden" 
+      className=" text-white overflow-x-hidden" 
+      // bg-[#05050a]
+      // bg-[#0f0f1c]
     >
       {/* ১. স্মুথ স্ক্রল সবার উপরে */}
       <LenisScroll />

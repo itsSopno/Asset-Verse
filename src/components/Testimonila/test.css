@@ -1,4 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 .right{
  font-family: "Bebas Neue", sans-serif;
+ background-color: var(--bg-main);
+ color: var(--text-main);
+}
+.beveled-top-left{
+    clip-path: polygon(0 15%, 10% 0, 100% 0, 100% 100%, 0 100%);
+   /* background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%); */
+   background-color: var(--brand-gradient);
 }

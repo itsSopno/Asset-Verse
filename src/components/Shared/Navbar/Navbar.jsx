@@ -6,12 +6,15 @@ import avatarImg from '../../../assets/images/placeholder.jpg'
 import { motion, AnimatePresence } from 'framer-motion'
 import './nav.css'
 import useRole from '../../../hooks/useRole'
-
+import { useTheme } from '../../../ThemeContext/useTheme'
+import { LuSunMoon } from "react-icons/lu";
+import { MdOutlineWbSunny } from 'react-icons/md'
 const Navbar = () => {
-  const { user, logOut } = useAuth()
-  const [isOpen, setIsOpen] = useState(false)
-  const [scrollY, setScrollY] = useState(0)
-  const [role] = useRole()
+  const { user, logOut } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+  const { theme, toggleTheme } = useTheme();
+  const [role] = useRole();
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -33,7 +36,7 @@ const Navbar = () => {
       transition={{ duration: 0.7, ease: 'easeOut' }}
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         scrollY > 60
-          ? 'bg-[#0b0b15]/90 backdrop-blur-xl border-b border-white/10 shadow-lg py-2'
+          ? ' backdrop-blur-xl border-b border-white/10 shadow-lg py-2'
           : 'bg-transparent py-5'
       }`}
     >
@@ -50,13 +53,16 @@ const Navbar = () => {
                 ASSET<span className="text-indigo-400">VERSE</span>
               </Link>
             </motion.div>
-
+<button onClick={toggleTheme} className="p-2 rounded-full border transition-all" style={{ borderColor: 'var(--border-color)' }}>
+            {theme === 'dark' ? <MdOutlineWbSunny className="text-yellow-400" /> : <LuSunMoon className="text-indigo-600" />}
+          </button>
             {/* DESKTOP MENU */}
             <ul className="hidden lg:flex items-center gap-8 text-sm font-semibold tracking-widest text-white/80">
-              <li><Link className="hover:text-white transition-colors" to="/">HOME</Link></li>
-              {user && <li><Link className="hover:text-white transition-colors" to="/dashboard">DASHBOARD</Link></li>}
-                 <li><Link className="hover:text-white transition-colors" to="/legal">LEGAL</Link></li>
-                  <li><Link className="hover:text-white transition-colors" to="/testimonial">TESTIMONIAL</Link></li>
+              <li><Link  style={{ color: 'var(--text-main)' }} className="hover:text-white transition-colors" to="/">HOME</Link></li>
+              {user && <li> <Link  style={{ color: 'var(--text-main)' }} className="hover:text-white transition-colors" to="/dashboard">DASHBOARD</Link></li>}
+            
+                 <li><Link  style={{ color: 'var(--text-main)' }} className="hover:text-white transition-colors" to="/legal">LEGAL</Link></li>
+                  <li><Link  style={{ color: 'var(--text-main)' }}className="hover:text-white transition-colors" to="/testimonial">TESTIMONIAL</Link></li>
             </ul>
           </div>
 
@@ -131,6 +137,9 @@ const Navbar = () => {
           >
             <div className="px-8 py-10 flex flex-col gap-6 text-base font-bold tracking-widest uppercase">
               <Link onClick={() => setIsOpen(false)} className="text-gray-300 hover:text-white" to="/">Home</Link>
+              <button onClick={toggleTheme} className="p-2 rounded-full border transition-all" style={{ borderColor: 'var(--border-color)' }}>
+            {theme === 'dark' ? <MdOutlineWbSunny className="text-yellow-400" /> : <LuSunMoon className="text-indigo-600" />}
+          </button>
               {user && <Link onClick={() => setIsOpen(false)} className="text-gray-300 hover:text-white" to="/dashboard">Dashboard</Link>}
               
               <hr className="border-white/5 my-2" />

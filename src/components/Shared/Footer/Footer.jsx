@@ -12,11 +12,11 @@ const Footer = () => {
       className=" text-neutral-content px-6 py-14 bg-transparent rounded-tr-4xl rounded-tl-4xl"
     >
      
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
+      <div style={{ color: 'var( --text-main)' }} className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
 
       
         <aside className="lg:col-span-2">
-          <h2 className="text-2xl font-bold text-white">AssetVerse</h2>
+          <h2 style={{ color: 'var( --text-main)' }} className="text-2xl font-bold text-white">AssetVerse</h2>
           <p className="max-w-md text-sm mt-3 text-gray-300 leading-relaxed">
             Smart Corporate Asset & HR Management Platform to track, assign, and
             manage company resources with complete transparency and control.

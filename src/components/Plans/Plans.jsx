@@ -4,7 +4,7 @@ import axios from 'axios'
 import LoadingSpinner from '../Shared/LoadingSpinner'
 import PlanCard from '../PlanCard/PlanCard'
 import { motion } from 'framer-motion'
-
+import './plan.css'
 const PlansPage = () => {
   const { data: plans = [], isLoading } = useQuery({
     queryKey: ['plans'],
@@ -17,7 +17,7 @@ const PlansPage = () => {
   if (isLoading) return <LoadingSpinner />
 
   return (
-    <div className="relative h-auto bg-[#0f0f1c] py-16 overflow-hidden">
+    <div className="plan relative h-auto bg-[#0f0f1c] py-16 overflow-hidden">
       {/* Animated Background Blobs */}
       <motion.div
         className="absolute w-[400px] h-[400px] bg-indigo-500/30 blur-[200px] rounded-full top-10 left-10"

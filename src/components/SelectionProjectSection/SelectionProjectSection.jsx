@@ -378,11 +378,11 @@ const SelectionProjectSection = () => {
   }, []);
 
   return (
-    <section ref={rootRef} className="selection-root relative w-full bg-[#0f0f1c] py-24 px-6 overflow-hidden">
+    <section style={{ backgroundColor: 'var(--bg-main)' }} ref={rootRef} className="selection-root relative w-full bg-[#0f0f1c] py-24 px-6 overflow-hidden">
       
       {/* Background Orbs */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-indigo-500/10 blur-[120px] rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-purple-500/10 blur-[100px] rounded-full translate-x-1/3 translate-y-1/3 pointer-events-none" />
+      {/* <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-indigo-500/10 blur-[120px] rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-purple-500/10 blur-[100px] rounded-full translate-x-1/3 translate-y-1/3 pointer-events-none" /> */}
 
       <div className="max-w-7xl mx-auto relative z-10">
         
@@ -391,7 +391,7 @@ const SelectionProjectSection = () => {
           <div className="inline-block px-4 py-1.5 mb-6 border border-indigo-500/30 rounded-full bg-indigo-500/5">
             <span className="text-xs font-mono tracking-[0.3em] text-indigo-400 uppercase">Phase 02: Technical Evaluation</span>
           </div>
-          <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-6">
+          <h2 style={{ color: 'var(--text-main)' }} className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-6">
             Selection Project: <span className="text-indigo-500">AssetVerse</span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
@@ -408,11 +408,11 @@ const SelectionProjectSection = () => {
             
             {/* Candidate Card */}
             <div className="animate-up group p-8 md:p-10 rounded-[2rem] bg-white/[0.03] border border-white/5 hover:border-indigo-500/30 transition-all duration-500">
-              <h3 className="text-2xl font-bold text-white mb-4">Dear Candidates,</h3>
+              <h3 style={{ color: 'var(--text-main)'}}  className="text-2xl font-bold text-white mb-4">Dear Candidates,</h3>
               <p className="text-gray-400 text-lg leading-relaxed mb-6">
                 Your skills have impressed us. Passions for engineering and attention to detail are exactly what we look for. This project evaluates your ability to handle <strong>State Management</strong>, <strong>Security</strong>, and <strong>UX Design</strong>.
               </p>
-              <div className="flex flex-wrap gap-4">
+              <div  className="flex flex-wrap gap-4">
                 <span className="px-4 py-2 rounded-xl bg-white/5 text-xs font-mono text-indigo-300 border border-white/10">Frontend Mastery</span>
                 <span className="px-4 py-2 rounded-xl bg-white/5 text-xs font-mono text-purple-300 border border-white/10">API Integration</span>
                 <span className="px-4 py-2 rounded-xl bg-white/5 text-xs font-mono text-pink-300 border border-white/10">DB Architecture</span>
@@ -475,9 +475,9 @@ const SelectionProjectSection = () => {
             {/* Feature Mini-cards */}
             <div className="grid grid-cols-1 gap-4">
               {reasons.slice(0, 3).map((r, i) => (
-                <div key={i} className="animate-up p-5 rounded-2xl bg-white/[0.02] border border-white/5 flex gap-4 items-center">
+                <div  key={i} className="animate-up p-5 rounded-2xl bg-white/[0.02] border border-white/5 flex gap-4 items-center">
                   <div className="text-indigo-400 text-xl">{r.icon}</div>
-                  <div className="text-xs font-bold text-white/80">{r.title}</div>
+                  <div  style={{ color: 'var(--text-main)'}} className="text-xs font-bold text-white/80">{r.title}</div>
                 </div>
               ))}
             </div>
