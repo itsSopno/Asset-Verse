@@ -6,7 +6,7 @@ import avatarImg from '../../../assets/images/placeholder.jpg'
 import { motion, AnimatePresence } from 'framer-motion'
 import './nav.css'
 import useRole from '../../../hooks/useRole'
-import { useTheme } from '../../../ThemeContext/useTheme'
+import { useTheme } from '../../UseTheme/UseTheme'
 import { LuSunMoon } from "react-icons/lu";
 import { MdOutlineWbSunny } from 'react-icons/md'
 const Navbar = () => {
