@@ -46,6 +46,7 @@ const Navbar = () => {
           {/* LEFT: LOGO & DESKTOP LINKS */}
           <div className="flex items-center gap-12">
             <motion.div whileHover={{ scale: 1.05 }} className="flex-shrink-0">
+             
               <Link
                 to="/"
                 className="text-xl md:text-2xl font-extrabold tracking-[0.2em] md:tracking-[0.3em] bg-gradient-to-r from-indigo-300 via-white to-indigo-300 bg-clip-text text-transparent drop-shadow-[0_0_18px_rgba(255,255,255,0.25)]"
@@ -137,6 +138,8 @@ const Navbar = () => {
           >
             <div className="px-8 py-10 flex flex-col gap-6 text-base font-bold tracking-widest uppercase">
               <Link onClick={() => setIsOpen(false)} className="text-gray-300 hover:text-white" to="/">Home</Link>
+                 <li><Link  style={{ color: 'var(--text-main)' }} className="hover:text-white transition-colors" to="/legal">LEGAL</Link></li>
+                  <li><Link  style={{ color: 'var(--text-main)' }}className="hover:text-white transition-colors" to="/testimonial">TESTIMONIAL</Link></li>
               <button onClick={toggleTheme} className="p-2 rounded-full border transition-all" style={{ borderColor: 'var(--border-color)' }}>
             {theme === 'dark' ? <MdOutlineWbSunny className="text-yellow-400" /> : <LuSunMoon className="text-indigo-600" />}
           </button>
@@ -170,3 +173,4 @@ const Navbar = () => {
 }
 
 export default Navbar
+
