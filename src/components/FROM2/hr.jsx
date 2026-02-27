@@ -85,7 +85,7 @@ const HRForm = () => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
-        className="w-full max-w-lg bg-white rounded-xl shadow-2xl p-8 sm:p-12"
+        className="w-full max-w-lg  rounded-xl shadow-2xl p-8 sm:p-12"
       >
         {/* Header */}
         <motion.div
