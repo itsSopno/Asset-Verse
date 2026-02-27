@@ -85,7 +85,7 @@ const Navbar = () => {
                     ) : (
                       /* If user is logged in but has no role yet */
                       <div className="flex gap-2">
-                        <Link to="/hr-join" className="text-xs font-bold bg-indigo-600 px-5 py-2 rounded-full text-white hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-500/20">
+                        <Link to="/hr" className="text-xs font-bold bg-indigo-600 px-5 py-2 rounded-full text-white hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-500/20">
                           Join as HR
                         </Link>
                         <Link to="/join" className="text-xs font-bold bg-white/5 border border-white/10 px-5 py-2 rounded-full text-white hover:bg-white/10 transition-all">
