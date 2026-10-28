@@ -15,7 +15,7 @@ AssetVerse streamlines asset tracking, improves accountability, and reduces admi
 ---
 
 ## 🎯 Project Overview
-
+[![Architecture diagram of itssopno/asset-verse](https://gitdiagram.com/itssopno/asset-verse/diagram.png)](https://gitdiagram.com/itssopno/asset-verse?utm_source=readme&utm_medium=picture)
 **AssetVerse** allows companies to:
 - Track physical assets (laptops, routers, projectors, etc.)
 - Assign assets to employees
